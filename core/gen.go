@@ -100,7 +100,7 @@ func (o *ImgOption) InitFont() {
 		case "darwin":
 			fontPath = "/Library/Fonts/" + o.FontName + ".ttf"
 		case "linux":
-			fontPath = "/usr/share/fonts/truetype/" + o.FontName + ".ttf"
+			fontPath = "./" + o.FontName + ".ttf"
 		case "windows":
 			fontPath = "C:\\Windows\\Fonts\\" + o.FontName + ".ttf"
 		default:

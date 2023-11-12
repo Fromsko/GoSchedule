@@ -29,11 +29,18 @@ type CnameObject struct {
 }
 
 // InitWeb 初始化浏览器
-func InitWeb(url string) (Web *WebObject) {
+func InitWeb(url, ws string) (Web *WebObject) {
 	//启动浏览器
-	u := launcher.New().MustLaunch()
+	var browser *rod.Browser
+
 	// 创建浏览器实例
-	browser := rod.New().ControlURL(u).MustConnect()
+	if ws != "" {
+		browser = rod.New().ControlURL(ws).MustConnect()
+	} else {
+		u := launcher.New().MustLaunch()
+		browser = rod.New().ControlURL(u).MustConnect()
+	}
+
 	// 新建一个页面
 	page := browser.MustPage()
 

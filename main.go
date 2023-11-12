@@ -31,7 +31,10 @@ func main() {
 
 // 任务
 func Task() {
-	Browser := core.InitWeb(define.LoginPageURL)
+	Browser := core.InitWeb(
+		define.LoginPageURL,
+		"",
+	)
 	Img := core.InitImg()
 	// 登录
 	if loginStatus := Browser.Login(); loginStatus {
