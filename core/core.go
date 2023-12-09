@@ -5,8 +5,8 @@ import (
 	"os"
 	"strings"
 
+	rod "github.com/Fromsko/rodPro"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/launcher"
 )
 

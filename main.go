@@ -6,12 +6,12 @@ import (
 	"Toch/utils"
 	"Toch/web"
 
-	"github.com/go-rod/rod"
+	rod "github.com/Fromsko/rodPro"
 )
 
 var (
 	ServerPort = ":2000" // 服务端口
-	ClassName  = "教育学x班" // 班级名称
+	ClassName  = "法学3班"  // 班级名称
 )
 
 func main() {

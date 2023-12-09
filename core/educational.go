@@ -2,7 +2,8 @@ package core
 
 import (
 	"fmt"
-	"github.com/go-rod/rod"
+
+	rod "github.com/Fromsko/rodPro"
 )
 
 // NextPage 教务系统页面

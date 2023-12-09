@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"path/filepath"
 	"runtime"
 
 	"github.com/fogleman/gg"
@@ -170,14 +171,41 @@ func (o *ImgOption) CreateBasePhoto() *gg.Context {
 	return o.Image
 }
 
-// SaveImg 存储图片
-func SaveImg(path string, img *gg.Context) (savePath string) {
-	if err := img.SavePNG(path); err != nil {
-		log.Errorf("保存失败: %s", path)
+type SaveToDB struct {
+	FileName string
+	meta     *gg.Context
+}
+
+func (s *SaveToDB) Write(p []byte) (n int, err error) {
+	imgName := filepath.Base(s.FileName)
+
+	id, err := CreateImage(imgName, p)
+	if err != nil {
+		log.Error(err)
 	} else {
-		log.Infof("保存成功: %s", path)
+		err = UpdateImage(id, p)
 	}
-	return path
+
+	return
+}
+
+func (s *SaveToDB) save() (err error) {
+	if err = s.meta.SavePNG(s.FileName); err != nil {
+		log.Errorf("保存失败: %s", s.FileName)
+	} else {
+		log.Infof("保存成功: %s", s.FileName)
+	}
+	return err
+}
+
+// SaveImg 存储图片
+func SaveImg(path string, img *gg.Context) (string, error) {
+	stb := &SaveToDB{
+		FileName: path,
+		meta:     img,
+	}
+	stb.meta.EncodePNG(stb)
+	return stb.FileName, stb.save()
 }
 
 // CheckData 检查数据
